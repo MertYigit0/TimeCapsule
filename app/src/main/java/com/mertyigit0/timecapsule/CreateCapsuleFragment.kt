@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.mertyigit0.timecapsule.data.Capsule
 import com.mertyigit0.timecapsule.databinding.FragmentCreateCapsuleBinding
 import com.mertyigit0.timecapsule.ui.CapsuleViewModel
@@ -42,5 +43,15 @@ class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
                 Toast.makeText(context, "Capsule created!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Go Home Button
+        binding.buttonGoHome.setOnClickListener {
+            goHome()
+        }
+    }
+
+
+    private fun goHome() {
+        findNavController().navigate(R.id.action_createCapsuleFragment_to_homeFragment)
     }
 }
