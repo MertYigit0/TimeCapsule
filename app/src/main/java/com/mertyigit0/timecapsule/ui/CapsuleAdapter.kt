@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mertyigit0.timecapsule.R
 import com.mertyigit0.timecapsule.data.Capsule
 
-class CapsuleAdapter : ListAdapter<Capsule, CapsuleAdapter.CapsuleViewHolder>(CapsuleDiffCallback()) {
+class CapsuleAdapter(
+    private val onItemLongClick: (Capsule) -> Unit
+) : ListAdapter<Capsule, CapsuleAdapter.CapsuleViewHolder>(CapsuleDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CapsuleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.capsule_item, parent, false)
@@ -21,14 +23,20 @@ class CapsuleAdapter : ListAdapter<Capsule, CapsuleAdapter.CapsuleViewHolder>(Ca
         holder.bind(getItem(position))
     }
 
-    class CapsuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CapsuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         private val textViewNote: TextView = itemView.findViewById(R.id.textViewNote)
+
+        init {
+            itemView.setOnLongClickListener {
+                onItemLongClick(getItem(adapterPosition))
+                true
+            }
+        }
 
         fun bind(capsule: Capsule) {
             textViewName.text = capsule.name
             textViewNote.text = capsule.note
-            // Diğer veriler de burada bağlanabilir
         }
     }
 
@@ -42,4 +50,3 @@ class CapsuleAdapter : ListAdapter<Capsule, CapsuleAdapter.CapsuleViewHolder>(Ca
         }
     }
 }
-

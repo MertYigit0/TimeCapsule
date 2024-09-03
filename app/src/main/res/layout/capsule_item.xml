@@ -5,17 +5,40 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Capsule Name"
-        android:textSize="18sp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
 
+        <!-- Capsule Image -->
+        <ImageView
+            android:id="@+id/imageViewCapsule"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/capsuleicon" /> <!-- Yer tutucu için örnek bir resim -->
+
+        <!-- Capsule Name -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:text="Capsule Name"
+            android:paddingStart="20dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <!-- Capsule Note -->
     <TextView
         android:id="@+id/textViewNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
         android:text="Capsule Note"
         android:textSize="14sp" />
 </LinearLayout>

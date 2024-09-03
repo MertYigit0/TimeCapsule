@@ -10,11 +10,11 @@ import androidx.room.Query
 interface CapsuleDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCapsule(capsule: Capsule)
+    suspend fun insert(capsule: Capsule)
 
     @Query("SELECT * FROM capsules")
     fun getAllCapsules(): LiveData<List<Capsule>>
 
     @Query("DELETE FROM capsules WHERE id = :id")
-    suspend fun deleteCapsule(id: Int)
+    suspend fun delete(id: Int)  // id'yi Long veya kapsülün id türü ile eşleştirin
 }

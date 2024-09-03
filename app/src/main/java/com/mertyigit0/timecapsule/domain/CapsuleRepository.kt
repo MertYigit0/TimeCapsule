@@ -1,19 +1,17 @@
-package com.mertyigit0.timecapsule.domain
+package com.mertyigit0.timecapsule.data
 
-import androidx.lifecycle.LiveData
-import com.mertyigit0.timecapsule.data.Capsule
-import com.mertyigit0.timecapsule.data.CapsuleDao
 import javax.inject.Inject
 
-class CapsuleRepository @Inject constructor(private val capsuleDao: CapsuleDao) {
-
-    val allCapsules: LiveData<List<Capsule>> = capsuleDao.getAllCapsules()
+class CapsuleRepository @Inject constructor(
+    private val capsuleDao: CapsuleDao
+) {
+    fun getAllCapsules() = capsuleDao.getAllCapsules()
 
     suspend fun insert(capsule: Capsule) {
-        capsuleDao.insertCapsule(capsule)
+        capsuleDao.insert(capsule)
     }
 
-    suspend fun delete(id: Int) {
-        capsuleDao.deleteCapsule(id)
+    suspend fun delete(capsule: Capsule) {
+        capsuleDao.delete(capsule.id)  // id'yi kullanarak silme işlemi
     }
 }
