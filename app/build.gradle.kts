@@ -70,6 +70,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation("io.coil-kt:coil:2.7.0")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
 
 
 }

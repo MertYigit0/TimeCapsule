@@ -1,4 +1,4 @@
-package com.mertyigit0.timecapsule
+package com.mertyigit0.timecapsule.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mertyigit0.timecapsule.data.Capsule
 import com.mertyigit0.timecapsule.databinding.FragmentHomeBinding
-import com.mertyigit0.timecapsule.ui.CapsuleAdapter
-import com.mertyigit0.timecapsule.ui.CapsuleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
