@@ -1,20 +1,24 @@
 package com.mertyigit0.timecapsule
 
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.provider.MediaStore
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.mertyigit0.timecapsule.data.Capsule
 import com.mertyigit0.timecapsule.databinding.FragmentCreateCapsuleBinding
 import com.mertyigit0.timecapsule.ui.CapsuleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
-
 
 @AndroidEntryPoint
 class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
@@ -23,12 +27,19 @@ class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
     private val capsuleViewModel: CapsuleViewModel by viewModels()
 
     private var selectedOpeningTime: Long = 0
+    private val selectedPhotos = mutableListOf<Uri>()
+
+    // Register the activity result launcher
+    private val pickPhotosLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
+        selectedPhotos.clear()
+        selectedPhotos.addAll(uris)
+        updatePhotoPreviews()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateCapsuleBinding.bind(view)
 
-        // Takvim ikonu tıklama olayını ekleyin
         binding.imageViewCalendar.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -47,10 +58,14 @@ class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
             datePickerDialog.show()
         }
 
+        binding.buttonPickPhotos.setOnClickListener {
+            pickPhotosLauncher.launch("image/*")
+        }
+
         binding.buttonSave.setOnClickListener {
             val name = binding.editTextName.text.toString()
             val note = binding.editTextNote.text.toString()
-            val photos = listOf<String>() // Fotoğraf işleme buradan genişletilebilir
+            val photos = selectedPhotos.map { it.toString() }
             val creationTime = System.currentTimeMillis()
 
             if (name.isNotEmpty() && note.isNotEmpty() && selectedOpeningTime != 0L) {
@@ -63,6 +78,7 @@ class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
                 )
                 capsuleViewModel.insert(capsule)
                 Toast.makeText(context, "Capsule created!", Toast.LENGTH_SHORT).show()
+                goHome()
             } else {
                 Toast.makeText(context, "Please fill in all fields!", Toast.LENGTH_SHORT).show()
             }
@@ -74,8 +90,17 @@ class CreateCapsuleFragment : Fragment(R.layout.fragment_create_capsule) {
         }
     }
 
+    private fun updatePhotoPreviews() {
+        // Update UI with selected photos (you can add more sophisticated preview handling)
+        if (selectedPhotos.isNotEmpty()) {
+            binding.imageViewPhoto1.load(selectedPhotos[0])
+            if (selectedPhotos.size > 1) {
+                binding.imageViewPhoto2.load(selectedPhotos[1])
+            }
+        }
+    }
+
     private fun goHome() {
         findNavController().navigate(R.id.action_createCapsuleFragment_to_homeFragment)
     }
 }
-
