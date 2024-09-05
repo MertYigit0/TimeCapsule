@@ -26,8 +26,8 @@ class CapsuleAdapter(
     }
 
     inner class CapsuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        private val textViewNote: TextView = itemView.findViewById(R.id.textViewNote)
+        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
+        //private val textViewNote: TextView = itemView.findViewById(R.id.textViewNote)
         private val textViewDaysUntilOpening: TextView = itemView.findViewById(R.id.textViewDaysUntilOpening)
 
         init {
@@ -39,8 +39,8 @@ class CapsuleAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(capsule: Capsule) {
-           // textViewName.text = capsule.name
-            textViewNote.text = capsule.note
+            textViewName.text = capsule.name
+            //textViewNote.text = capsule.note
 
             val daysUntilOpening = calculateDaysUntilOpening(capsule.creationTime, capsule.openingTime)
             textViewDaysUntilOpening.text = "$daysUntilOpening"

@@ -14,7 +14,4 @@ data class Capsule(
     val openingTime: Long // Açılacağı zaman, Unix timestamp olarak
 )
 
-fun calculateDaysUntilOpening(creationTime: Long, openingTime: Long): Long {
-    return TimeUnit.MILLISECONDS.toDays(openingTime - creationTime)
-}
 

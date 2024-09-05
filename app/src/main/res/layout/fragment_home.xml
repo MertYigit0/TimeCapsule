@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Capsules"
+        android:layout_gravity="center"
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
