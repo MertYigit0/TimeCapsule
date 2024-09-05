@@ -19,14 +19,14 @@
 
         <!-- Capsule Name -->
         <TextView
-            android:id="@+id/textViewName"
+            android:id="@+id/textViewDaysUntilOpening"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:text="Capsule Name"
             android:paddingStart="20dp"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -41,4 +41,6 @@
         android:layout_gravity="center"
         android:text="Capsule Note"
         android:textSize="14sp" />
+
+
 </LinearLayout>

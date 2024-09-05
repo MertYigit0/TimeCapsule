@@ -2,6 +2,7 @@ package com.mertyigit0.timecapsule.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.concurrent.TimeUnit
 
 @Entity(tableName = "capsules")
 data class Capsule(
@@ -12,3 +13,8 @@ data class Capsule(
     val creationTime: Long, // Oluşturulma zamanı, Unix timestamp olarak
     val openingTime: Long // Açılacağı zaman, Unix timestamp olarak
 )
+
+fun calculateDaysUntilOpening(creationTime: Long, openingTime: Long): Long {
+    return TimeUnit.MILLISECONDS.toDays(openingTime - creationTime)
+}
+
